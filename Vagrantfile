@@ -16,5 +16,5 @@ Vagrant.configure(2) do |config|
   config.landrush.enabled = true 
   config.vm.hostname = 'dev.vm'
   config.landrush.tld = 'vm'
-  config.vm.synced_folder "www/", "/var/www"
+  config.vm.synced_folder "www/", "/usr/share/nginx/html"
 end
