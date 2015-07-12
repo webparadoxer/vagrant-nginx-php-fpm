@@ -8,6 +8,16 @@
 # 
 # (The "ubuntu/trusty64" box was used and tested)
 #
+
+cat > /etc/resolv.conf << "EOF"
+# Begin /etc/resolv.conf
+
+domain dev.pm
+nameserver 8.8.8.8
+
+# End /etc/resolv.conf
+EOF
+
  
 apt-get update
 #if ! [ -L /var/www ]; then
@@ -66,31 +76,32 @@ if [ -f /etc/nginx/sites-enabled/default ]; then
 fi
  
 if [ ! -f /etc/nginx/sites-enabled/dev.vm ]; then
-    ln -s /etc/nginx/sites-available/vagrant /etc/nginx/sites-enabled/dev.vm
+    ln -s /etc/nginx/sites-available/dev.vm /etc/nginx/sites-enabled/dev.vm
 fi
  
 # Configure host
 cat << 'EOF' > /etc/nginx/sites-available/dev.vm
-server
-{
-    listen  80;
-    root /dev.vm;
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
+
+    root /usr/share/nginx/html;
     index index.php index.html index.htm;
-    server_name dev.vm
-    location "/"
-    {
-        index index.php index.html index.htm;
-        try_files $uri $uri/ =404;
+
+    server_name dev.vm;
+
+    location / {
+	try_files $uri $uri/ =404;
     }
- 
-    location ~ \.php$
-    {
-        include /etc/nginx/fastcgi_params;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME /vagrant$fastcgi_script_name;
+
+    location ~ \.php$ {
+	fastcgi_pass unix:/var/run/php5-fpm.sock;
+	fastcgi_index index.php;
+	include fastcgi_params;
     }
+
 }
+
 EOF
  
 # Restart servers
