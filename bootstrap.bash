@@ -9,34 +9,37 @@
 # (The "ubuntu/trusty64" box was used and tested)
 #
 
-cat > /etc/resolv.conf << "EOF"
+#cat > /etc/resolv.conf << "EOF"
 # Begin /etc/resolv.conf
 
-domain dev.vm
-nameserver 8.8.8.8
+#domain dev.vm
+#nameserver 8.8.8.8
 
 # End /etc/resolv.conf
-EOF
+#EOF
 
-deb http://nginx.org/packages/ubuntu/ trusty nginx
-deb-src http://nginx.org/packages/ubuntu/ trusty nginx
- 
+# add-apt-repository "deb http://nginx.org/packages/ubuntu/ trusty nginx"
+# add-apt-repository "deb-src http://nginx.org/packages/ubuntu/ trusty nginx"
+
+
+# wget -qO - http://nginx.org/keys/nginx_signing.key | sudo apt-key add -
 apt-get update
 
-apt-get install -y htop mc > /dev/null 2>&1
+
+apt-get install -y htop mc 
  
 # Install nginx
-apt-get install -y nginx > /dev/null 2>&1
- 
+apt-get install -y nginx 
+exit 0;
+
 # Install mysql
-apt-get install -y debconf-utils > /dev/null 2>&1
+apt-get install -y debconf-utils  
 debconf-set-selections <<< "mysql-server mysql-server/root_password password 13"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 13"
-apt-get install -y mysql-server mysql-client > /dev/null 2>&1
+apt-get install -y mysql-server mysql-client
  
 # Install php-fpm
-apt-get install -y php5-cli php5-common php5-mysql php5-gd php5-fpm php5-cgi php5-fpm php-pear php5-mcrypt > /dev/null 2>&1
-apt-get -f install > /dev/null 2>&1
+apt-get install -y php5-cli php5-common php5-mysql php5-gd php5-fpm php5-cgi php5-fpm php-pear php5-mcrypt 
  
 # Stop servers
 service nginx stop
@@ -104,6 +107,14 @@ server {
 
 EOF
  
+rm /usr/share/nginx/html/index.html
+cat << 'EOF' > //usr/share/nginx/html/index.php
+<?php
+    phpinfo();
+EOF
+
+
+
 # Restart servers
 service nginx restart
 service php5-fpm restart

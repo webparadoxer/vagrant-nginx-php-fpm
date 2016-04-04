@@ -6,8 +6,8 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |v|
     # v.gui = true
     v.memory = 512
-    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    # v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end  
   
   config.vm.box = "ubuntu/trusty64"
@@ -16,5 +16,5 @@ Vagrant.configure(2) do |config|
   config.landrush.enabled = true 
   config.vm.hostname = 'dev.vm'
   config.landrush.tld = 'vm'
-  config.vm.synced_folder "www/", "/usr/share/nginx/html"
+  config.vm.synced_folder "www/", "/usr/share/nginx/html", create: true
 end
