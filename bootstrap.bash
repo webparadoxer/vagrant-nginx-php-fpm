@@ -12,12 +12,14 @@
 cat > /etc/resolv.conf << "EOF"
 # Begin /etc/resolv.conf
 
-domain dev.pm
+domain dev.vm
 nameserver 8.8.8.8
 
 # End /etc/resolv.conf
 EOF
 
+deb http://nginx.org/packages/ubuntu/ trusty nginx
+deb-src http://nginx.org/packages/ubuntu/ trusty nginx
  
 apt-get update
 
