@@ -23,20 +23,20 @@ deb-src http://nginx.org/packages/ubuntu/ trusty nginx
  
 apt-get update
 
-apt-get install -y htop mc
+apt-get install -y htop mc > /dev/null 2>&1
  
 # Install nginx
-apt-get install -y nginx
+apt-get install -y nginx > /dev/null 2>&1
  
 # Install mysql
-apt-get install -y debconf-utils
+apt-get install -y debconf-utils > /dev/null 2>&1
 debconf-set-selections <<< "mysql-server mysql-server/root_password password 13"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 13"
-apt-get install -y mysql-server mysql-client
+apt-get install -y mysql-server mysql-client > /dev/null 2>&1
  
 # Install php-fpm
-apt-get install -y php5-cli php5-common php5-mysql php5-gd php5-fpm php5-cgi php5-fpm php-pear php5-mcrypt
-apt-get -f install
+apt-get install -y php5-cli php5-common php5-mysql php5-gd php5-fpm php5-cgi php5-fpm php-pear php5-mcrypt > /dev/null 2>&1
+apt-get -f install > /dev/null 2>&1
  
 # Stop servers
 service nginx stop
