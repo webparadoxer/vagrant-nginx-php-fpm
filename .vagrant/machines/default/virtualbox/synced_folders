@@ -1,0 +1,1 @@
+{"virtualbox":{"/usr/share/nginx/html":{"create":true,"guestpath":"/usr/share/nginx/html","hostpath":"/Users/ViD/projects/vagrant-nginx-php-fpm/www","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/ViD/projects/vagrant-nginx-php-fpm","disabled":false,"__vagrantfile":true}}}

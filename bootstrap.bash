@@ -30,7 +30,6 @@ apt-get install -y htop mc
  
 # Install nginx
 apt-get install -y nginx 
-exit 0;
 
 # Install mysql
 apt-get install -y debconf-utils  
